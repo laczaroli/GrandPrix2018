@@ -59,14 +59,61 @@ public:
 int main() {
 
   int k=2, u=3;
-  cin << k << u;
+  int x = 0;
+  cin >> k >> u;
   int n = 0;
-
   sparseMatrix temp;
+  sparseMatrix* prevPos;
+  sparseMatrix* prevNeg;
   vector<sparseMatrix> positives;
   vector<sparseMatrix> negatives;
-  while(1)
-  if()
+  for(int i = 0; i < k; i++)
+  {
+    prevPos = NULL;
+    prevNeg = NULL;
+    for(int j = 0; j < u; j++)
+    {
+      cin >> n;
+
+      if(n > 0) {
+        temp.setRow(i);
+        temp.setColumn(j);
+        temp.setValue(n);
+        positives.push_back(temp);
+        if(prevPos == NULL)
+        {
+          prevPos = &positives[positives.size()-1];
+        } else {
+          prevPos->setNext(positives.size());
+          prevPos = &positives[positives.size()-1];
+        }
+
+        cout << &positives[positives.size()-1] << " " << prevPos;
+        x++;
+      } else if(n < 0)
+      {
+        temp.setRow(i);
+        temp.setColumn(j);
+        temp.setValue(n);
+        negatives.push_back(temp);
+        if(prevNeg == NULL)
+        {
+          prevNeg = &temp;
+        } else {
+          prevNeg->setNext(negatives.size()-1);
+          prevNeg = &temp;
+        }
+      }
+    }
+  }
+
+  for(int i = 0; i < positives.size(); i++)
+  {
+    cout << positives[i].getRow() << " ";
+    cout << positives[i].getColumn() << " ";
+    cout << positives[i].getValue() << " ";
+    cout << positives[i].getNext() << endl;
+  }
 
   /*j
   int jk [k][u] = {
